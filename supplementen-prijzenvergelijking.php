@@ -67,7 +67,7 @@
 		// 4,4kg whey perfection
 		$wp45kg = $html -> find(".r", 4) -> innertext;
 		// in mysql
-		//$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (2, \'Bodyenfitshop\', \'Whey Perfection\', \'4,5kg\', '".$wp45kg."');";
+		$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (2, \'Bodyenfitshop\', \'Whey Perfection\', \'4,5kg\', '".$wp45kg."');";
 
 		// HTML ophalen XXL Nutrition
 		$html -> load_file('http://www.xxlnutrition.nl/whey-delicious/xxl-nutrition');
@@ -85,11 +85,11 @@
 		// 1kg whey delicious
 		$wd1kg = $html -> find('option[value=435]', 0) -> innertext;
 		// in mysql
-		//$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (3, \'XXL Nutrition\', \'Whey Delicious\', \'1,0kg\', '".$wd1kg."');";
+		$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (3, \'XXL Nutrition\', \'Whey Delicious\', \'1,0kg\', '".$wd1kg."');";
 		// 2,5kg whey delicious
 		$wd25kg = $html -> find('option[value=437]', 0) -> innertext;
 		// in mysql
-		//$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (4, \'XXL Nutrition\', \'Whey Delicious\', \'2,5kg\', '".$wd25kg."');";
+		$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (4, \'XXL Nutrition\', \'Whey Delicious\', \'2,5kg\', '".$wd25kg."');";
 
 		// HTML ophalen Sportsfood
 		$html -> load_file('http://www.sportfood.nl/shop/product_info.php?products_id=373');
@@ -98,7 +98,7 @@
 		// 2kg iron whey
 		$sf2kg = $html -> find('td[class=pageHeading]', 1) -> innertext;
 		// in mysql
-		//$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (5, \'Sportfood\', \'Iron Whey\', \'2,0kg\', '".$sf2kg."');";
+		$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (5, \'Sportfood\', \'Iron Whey\', \'2,0kg\', '".$sf2kg."');";
 
 		// HTML ophalen Bodylab
 		$html -> load_file('http://www.bodylab.nl/?pid=483');
@@ -107,7 +107,7 @@
 		// 2kg whey pro
 		$bl2kg = $html -> find('.rbprice', 0) -> innertext;
 		// in mysql
-		//$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (6, \'Bodylab\', \'Whey Pro\', \'2,0kg\', '".$bl2kg."');";
+		$sql = "INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (6, \'Bodylab\', \'Whey Pro\', \'2,0kg\', '".$bl2kg."');";
 				
 		// geheugen vrijmaken
 			$html->clear();
