@@ -1,0 +1,32 @@
+#summary Hoe te gebruiken ?
+#labels Featured,Phase-Deploy
+
+= Hoe te gebruiken ? =
+
+1) Download beide php bestanden en zet ze samen in een map.
+
+2) Open *supplementen-prijzenvergelijking.php* en verander je MySQL gegevens _(werkt nog niet)_:
+
+`$mysql_server = 'localhost';`
+
+`$mysql_user = 'root';`
+
+`$mysql_pass = '';`
+
+`$mysql_db = 'db_school';`
+
+3) Gebruik de volgende variabelen:
+
+`$wp22kg` voor B&F Whey Perfection 2,2kg
+
+`$wp45kg` voor B&F Whey Perfection 4,5kg
+
+`$wd1kg` voor XXL Whey Delicious 1,0kg
+
+`$wd25kg` voor XXL Whey Delicious 2,5kg
+
+`$sf2kg` voor Sportfood Iron Whey 2,0kg
+
+`$bl2kg` voor Bodylab Whey Pro 2,0kg
+
+4) Help mee.
