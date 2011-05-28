@@ -32,11 +32,46 @@
  *     $bl2kg    = Whey Pro 2,0kg        *
  *                         *
  * ********************************************** */
+// notices over lege $_POST negeren
+ini_set('display_errors', 1);
+error_reporting(~E_NOTICE);
+
 // config
 $sqlhost = "127.0.0.1";
 $sqluser = "root";
 $sqlpass = "";
 $sqldb = "db_school";
+
+// verbinden met database
+$oPDO = new PDO('mysql:host=' . $sqlhost . ';dbname=' . $sqldb . '', $sqluser, $sqlpass);
+// error handling
+$oPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// functie om SQL inserting te vergemakkelijken
+function addToDB($id, $producent, $product, $gewicht, $prijs) {
+    // variabels global maken om ze in functie te gebruiken
+    global $oPDO;
+
+    // query klaarmaken en escapen dmv prepare
+    $oResult = $oPDO->prepare("INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (:id, :producent, :product, :gewicht, :prijs) ON DUPLICATE KEY UPDATE D_prijs=VALUES(D_prijs)");
+
+    // resultaat weergeven
+    if ($oResult) {
+        echo("<p>Query voor " . $producent . " / " . $product . " / " . $gewicht . " uitgevoerd!</p> \n");
+    } else {
+        echo("<p>Geen nieuwe queries uitgevoerd!</p>");
+    }
+
+    // vars binden
+    $oResult->bindParam(':id', $id);
+    $oResult->bindParam(':producent', $producent);
+    $oResult->bindParam(':product', $product);
+    $oResult->bindParam(':gewicht', $gewicht);
+    $oResult->bindParam(':prijs', $prijs);
+
+    // query uitvoeren
+    $oResult->execute();
+}
 
 // nodig om te scrapen
 include ("simple_html_dom.php");
@@ -57,38 +92,6 @@ echo <<<END
 END;
 if ($_POST['update']) {
     try {
-
-        // functie om SQL inserting te vergemakkelijken
-        function addToDB($id, $producent, $product, $gewicht, $prijs) {
-            // variabels global maken om ze in functie te gebruiken
-            global $sqlhost, $sqluser, $sqlpass, $sqldb;
-
-            // verbinden met database
-            $oPDO = new PDO('mysql:host=' . $sqlhost . ';dbname=' . $sqldb . '', $sqluser, $sqlpass);
-            // error handling
-            $oPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            // query klaarmaken en escapen dmv prepare
-            $oResult = $oPDO->prepare("INSERT INTO T_supplementen (D_id, D_producent, D_product, D_gewicht, D_prijs) VALUES (:id, :producent, :product, :gewicht, :prijs) ON DUPLICATE KEY UPDATE D_prijs=VALUES(D_prijs)");
-
-            // resultaat weergeven
-            if ($oResult) {
-                echo("<p>Query voor " . $producent . " / " . $product . " / " . $gewicht . " uitgevoerd!</p> \n");
-            } else {
-                echo("<p>Geen nieuwe queries uitgevoerd!</p>");
-            }
-
-            // vars binden
-            $oResult->bindParam(':id', $id);
-            $oResult->bindParam(':producent', $producent);
-            $oResult->bindParam(':product', $product);
-            $oResult->bindParam(':gewicht', $gewicht);
-            $oResult->bindParam(':prijs', $prijs);
-
-            // query uitvoeren
-            $oResult->execute();
-        }
-
         // DOM object creeëren
         $html = new simple_html_dom();
 
@@ -151,13 +154,13 @@ if ($_POST['update']) {
         echo '</pre>';
     }
 } elseif ($_POST['view']) {
-    echo "<p>Hello hello!</p>";
+    echo "<p>Hier wordt informatie uit de DB gehaald!</p>";
+} else {
+    echo "<p>Kies een actie.</p>";
 }
-else {
-    echo "<p>Kies een actie</p>";
-    }
 echo <<<END
     </body>
 </html>
 END;
 ?>
+
