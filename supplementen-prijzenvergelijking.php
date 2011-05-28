@@ -55,9 +55,7 @@ echo <<<END
             <button type="submit" name="view" value="view">View!</button>
         </form>
 END;
-if (!$_POST['view'] || !$_POST['update']) {
-    echo "<p>Kies een actie</p>";
-} elseif ($_POST['update']) {
+if ($_POST['update']) {
     try {
 
         // functie om SQL inserting te vergemakkelijken
@@ -153,10 +151,11 @@ if (!$_POST['view'] || !$_POST['update']) {
         echo '</pre>';
     }
 } elseif ($_POST['view']) {
-    echo <<<END
-    Hello hello!
-END;
+    echo "<p>Hello hello!</p>";
 }
+else {
+    echo "<p>Kies een actie</p>";
+    }
 echo <<<END
     </body>
 </html>
