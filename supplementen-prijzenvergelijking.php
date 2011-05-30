@@ -32,9 +32,6 @@
  *     $bl2kg    = Whey Pro 2,0kg        *
  *                         *
  * ********************************************** */
-// notices over lege $_POST negeren
-ini_set('display_errors', 1);
-error_reporting(~E_NOTICE);
 
 // config
 $sqlhost = "127.0.0.1";
@@ -90,7 +87,7 @@ echo <<<END
             <button type="submit" name="view" value="view">View!</button>
         </form>
 END;
-if ($_POST['update']) {
+if (isset($_POST['update'])) {
     try {
         // DOM object creeëren
         $html = new simple_html_dom();
@@ -153,7 +150,7 @@ if ($_POST['update']) {
         echo 'Foutmelding: ' . $e->getMessage() . '<br>';
         echo '</pre>';
     }
-} elseif ($_POST['view']) {
+} elseif (isset($_POST['view'])) {
     echo "<p>Hier wordt informatie uit de DB gehaald!</p>";
 } else {
     echo "<p>Kies een actie.</p>";
