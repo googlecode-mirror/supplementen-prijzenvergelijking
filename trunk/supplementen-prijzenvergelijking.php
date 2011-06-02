@@ -22,15 +22,15 @@
  *
  *
  * **********************************************
- *              	Variabelen              	*
- *                  ----------        			*
+ *                  Variabelen                  *
+ *                  ----------                    *
  *     $wp22kg    = Whey Perfection 2,2kg       *
  *     $wp45kg    = Whey Perfection 4,5kg       *
  *     $wd1kg    = Whey Delicious 1,0kg         *
  *     $wd25kg    = Whey Delicious 2,5kg        *
- *     $sf2kg    = Iron Whey 2,0kg        		*
- *     $bl2kg    = Whey Pro 2,0kg				*
- *     $ps25kg	= Whey Isolate 2,5kg			*
+ *     $sf2kg    = Iron Whey 2,0kg                *
+ *     $bl2kg    = Whey Pro 2,0kg                *
+ *     $ps25kg    = Whey Isolate 2,5kg            *
  * ******************************************** */
 
 // config
@@ -56,7 +56,7 @@ function addToDB($id, $producent, $product, $gewicht, $prijs) {
     if ($oResult) {
         echo("<p>Query voor " . $producent . " / " . $product . " / " . $gewicht . " uitgevoerd!</p> \n");
     } else {
-        echo("<p>Geen nieuwe queries uitgevoerd!</p>");
+        echo("<p>Mislukt!</p>");
     }
 
     // vars binden
@@ -145,21 +145,21 @@ if (isset($_POST['update'])) {
         addToDB('6', 'Bodylab', 'Whey Pro', '2,0kg', $bl2kg);
         
         // HTML ophalen Powersupplements
-		$html->load_file('http://www.powersupplements.nl/pure-whey-protein-isolate-2500g-38');
+    $html->load_file('http://www.powersupplements.nl/pure-whey-protein-isolate-2500g-38');
 
-		// Onnodige info weg, die schrijven wij er zelf bij
-		// array maken voor info die wij er uit gaan laten
-		$pattern = array("/Prijs:&nbsp;/");
-		// $pattern vervangen door niks
-		$html = preg_replace($pattern, '', $html);
-		// DOM object maken van een string
-		$html = str_get_html($html);
+    // Onnodige info weg, die schrijven wij er zelf bij
+    // array maken voor info die wij er uit gaan laten
+    $pattern = array("/Prijs:&nbsp;/");
+    // $pattern vervangen door niks
+    $html = preg_replace($pattern, '', $html);
+    // DOM object maken van een string
+    $html = str_get_html($html);
 
-		// Prijs ophalen van Powersupplements Whey Isolate dmv <td class=main_table>
-		// 2,5kg isolaat
-		$ps25kg = $html->find('td[class=main_table]', 0)->innertext;
-		// in mysql
-		addToDB('7', 'Powersupplements', 'Whey Isolate', '2,5kg', $ps25kg);
+    // Prijs ophalen van Powersupplements Whey Isolate dmv <td class=main_table>
+    // 2,5kg isolaat
+    $ps25kg = $html->find('td[class=main_table]', 0)->innertext;
+    // in mysql
+    addToDB('7', 'Powersupplements', 'Whey Isolate', '2,5kg', $ps25kg);
     } catch (PDOException $e) {
         echo '<pre>';
         echo 'Regelnummer: ' . $e->getLine() . '<br>';
@@ -168,7 +168,26 @@ if (isset($_POST['update'])) {
         echo '</pre>';
     }
 } elseif (isset($_POST['view'])) {
-    echo "<p>Hier wordt informatie uit de DB gehaald!</p>";
+    $result = $oPDO->query("SELECT D_id,D_producent,D_product,D_gewicht,D_prijs FROM T_supplementen ORDER BY D_id");
+    echo <<<END
+    <table align="center" border="1">
+    <tr>
+        <td><b>ID</b></td>
+        <td><b>Producent</b></td>
+        <td><b>Product</b></td>
+        <td><b>Gewicht</b></td>
+        <td><b>Prijs</b></td>
+    </tr>
+END;
+    foreach($result as $row) {
+        echo "<tr>";
+        echo "<td>".$row['D_id']."</td>";
+        echo "<td>".$row['D_producent']."</td>";
+        echo "<td>".$row['D_product']."</td>";
+        echo "<td>".$row['D_gewicht']."</td>";
+        echo "<td>".htmlspecialchars_decode($row['D_prijs'])."</td>";
+        echo "</tr>";
+    }
 } else {
     echo "<p>Kies een actie.</p>";
 }
@@ -177,3 +196,4 @@ echo <<<END
 </html>
 END;
 ?>
+
