@@ -20,18 +20,18 @@
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *      MA 02110-1301, USA.
  *
- * 
- * ***********************************************
- *              Variabelen              *
- *                  ----------        *
- *     $wp22kg    = Whey Perfection 2,2kg        *
- *     $wp45kg    = Whey Perfection 4,5kg        *
- *     $wd1kg    = Whey Delicious 1,0kg          *
+ *
+ * **********************************************
+ *              	Variabelen              	*
+ *                  ----------        			*
+ *     $wp22kg    = Whey Perfection 2,2kg       *
+ *     $wp45kg    = Whey Perfection 4,5kg       *
+ *     $wd1kg    = Whey Delicious 1,0kg         *
  *     $wd25kg    = Whey Delicious 2,5kg        *
- *     $sf2kg    = Iron Whey 2,0kg        *
- *     $bl2kg    = Whey Pro 2,0kg        *
- *                         *
- * ********************************************** */
+ *     $sf2kg    = Iron Whey 2,0kg        		*
+ *     $bl2kg    = Whey Pro 2,0kg				*
+ *     $ps25kg	= Whey Isolate 2,5kg			*
+ * ******************************************** */
 
 // config
 $sqlhost = "127.0.0.1";
@@ -143,6 +143,23 @@ if (isset($_POST['update'])) {
         $bl2kg = $html->find('.rbprice', 0)->innertext;
         // in mysql
         addToDB('6', 'Bodylab', 'Whey Pro', '2,0kg', $bl2kg);
+        
+        // HTML ophalen Powersupplements
+		$html->load_file('http://www.powersupplements.nl/pure-whey-protein-isolate-2500g-38');
+
+		// Onnodige info weg, die schrijven wij er zelf bij
+		// array maken voor info die wij er uit gaan laten
+		$pattern = array("/Prijs:&nbsp;/");
+		// $pattern vervangen door niks
+		$html = preg_replace($pattern, '', $html);
+		// DOM object maken van een string
+		$html = str_get_html($html);
+
+		// Prijs ophalen van Powersupplements Whey Isolate dmv <td class=main_table>
+		// 2,5kg isolaat
+		$ps25kg = $html->find('td[class=main_table]', 1)->innertext;
+		// in mysql
+		addToDB('7', 'Powersupplements', 'Whey Isolate', '2,5kg', $ps25kg);
     } catch (PDOException $e) {
         echo '<pre>';
         echo 'Regelnummer: ' . $e->getLine() . '<br>';
@@ -160,4 +177,3 @@ echo <<<END
 </html>
 END;
 ?>
-
