@@ -157,7 +157,7 @@ if (isset($_POST['update'])) {
 
 		// Prijs ophalen van Powersupplements Whey Isolate dmv <td class=main_table>
 		// 2,5kg isolaat
-		$ps25kg = $html->find('td[class=main_table]', 1)->innertext;
+		$ps25kg = $html->find('td[class=main_table]', 0)->innertext;
 		// in mysql
 		addToDB('7', 'Powersupplements', 'Whey Isolate', '2,5kg', $ps25kg);
     } catch (PDOException $e) {
