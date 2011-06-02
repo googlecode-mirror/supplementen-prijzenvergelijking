@@ -1,5 +1,5 @@
 #summary Hoe te gebruiken ?
-#labels Featured,Phase-Deploy
+#labels Featured,Phase-Deploy,Phase-Requirements
 
 = Hoe te gebruiken ? =
 
@@ -61,6 +61,8 @@ CREATE TABLE IF NOT EXISTS `T_supplementen` (
 `$sf2kg` voor Sportfood Iron Whey 2,0kg
 
 `$bl2kg` voor Bodylab Whey Pro 2,0kg
+
+`$ps25kg` voor Powersupplements Whey Isolate 2,5kg
 
 4) Om een prijs op te halen, werk je met simplehtmldom.
 Voorbeeld:
