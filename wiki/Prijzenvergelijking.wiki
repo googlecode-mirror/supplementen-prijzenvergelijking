@@ -81,7 +81,7 @@ $html = str_get_html($html);
 
 // Prijs in HTML staat hier tussen:
 // <td class="main_table" align="center" colspan="2">Prijs:&nbsp;€48,90</td>
-$ps25kg = $html->find('td[class=main_table]', 1)->innertext; // '1' staat voor de eerste child die wij vinden
+$ps25kg = $html->find('td[class=main_table]', 0)->innertext; // '0' staat voor de eerste child die wij vinden
 // in mysql
 // ID, Producent, Product, Gewicht, Variabele
 addToDB('7', 'Powersupplements', 'Whey Isolate', '2,5kg', $ps25kg);
